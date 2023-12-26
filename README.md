@@ -1,14 +1,18 @@
 # Bienvenue à la documentation de notre Module!
-Réalisation du projet final de POO
-Rayane JAFFAL et Jennifer NGOUNA
-Prof. Jacquelin Charbonel
-Université d'Angers
-## Projet-POO : Collecte de livres
+Réalisation du projet final de POO  
+Rayane JAFFAL et Jennifer NGOUNA   
+Prof. Jacquelin Charbonel   
+Université d'Angers   
+
+## Projet-POO : Collecte de livres    
+
 L’objectif de ce projet est de concevoir une application pour constituer et suivre une bibliothèque de livres. L’idée est de pouvoir collecter des livres (au format _EPUB_ et _PDF_) sur le web (_web scraping_) pour constituer une bibliothèque, et générer divers catalogues de cette bibliothèque.
-Page d'accueil : https://github.com/NJFresnay/Projet-POO.git
+Page d'accueil : https://github.com/NJFresnay/Projet-POO.git   
+
 [](#introduction)Introduction
------------------------------
-Ce module se compose de quatre classes: la classe `base_livre` qui englobe les sous-classes `PDF` et `EPUB`, la classe `base_bibli` avec la sous-classe `simple_bibli`, la classe `bibli`, et enfin la classe `bibli_scrap`.
+-----------------------------   
+Ce module se compose de quatre classes: la classe `base_livre` qui englobe les sous-classes `PDF` et `EPUB`, la classe `base_bibli` avec la sous-classe `simple_bibli`, la classe `bibli`, et enfin la classe `bibli_scrap`.   
+
 [](#_librairies_python)Librairies Python
 ----------------------------------------
 Les principales librairies Python utilisées dans notre module:
@@ -19,6 +23,7 @@ Les principales librairies Python utilisées dans notre module:
 - `pdfkit` qui aide à créer des documents PDF en transformant de simples pages HTML [description](https://pypi.org/project/pdfkit/)
 - `shutil` est une bibliothèque standard qui offre un ensemble de fonctions haut niveau pour effectuer des opérations de manipulation de fichiers et de répertoires. Elle est particulièrement utile pour effectuer des opérations courantes telles que la copie, le déplacement, la suppression et l'archivage de fichiers et de répertoires.
 - `pandas` qui fournit des structures de données rapides et flexibles: DataFrame [description](https://pypi.org/project/pandas/)
+  
 [](#_les_méta-données)Les Méta-données
 --------------------------------------
 La classe `base_livre` utilise principalement les librairies `pypdf` et `EbookLib` pour extraire les méta-données des livres au format PDF ou EPUD. Cela peut être effectué à partir d'un chemin local ou d'une URL. Tout d'abord, l'extension de la ressource est vérifiée pour déterminer le type de fichier, puis en fonction de ce type, la sous-classe appropriée, soit `PDF`, soit `EPUB`, est appelée.
@@ -94,6 +99,7 @@ Exemple d'utilisation de cette classe:
 ````pythonpath = bibli_scrap(r"C:\Users\jaffa\OneDrive\Desktop\Bibliotheque") #le directoire où sauvegarder les fichiers
 path.scrap("https://math.univ-angers.fr/~jaclin/biblio/livres/", 1, 2) #récupérer de cette page web
 ````
-Ensuite, cette classe explore la même page à la recherche des liens qui ne renvoient pas vers des livres, puis elle applique la méthode `scrap` sur ces lien de manière récursive jusqu'à ce que la profendeur souhaitée est atteinte.
+Ensuite, cette classe explore la même page à la recherche des liens qui ne renvoient pas vers des livres, puis elle applique la méthode `scrap` sur ces lien de manière récursive jusqu'à ce que la profendeur souhaitée est atteinte.   
+
 --------------------------------------------------------------
 Test possible des classes avec l’URL [bibliothèque](https://math.univ-angers.fr/~jaclin/biblio/livres/)
