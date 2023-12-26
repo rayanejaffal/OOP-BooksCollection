@@ -7,7 +7,7 @@ Université d'Angers
 ## Projet-POO : Collecte de livres    
 
 L’objectif de ce projet est de concevoir une application pour constituer et suivre une bibliothèque de livres. L’idée est de pouvoir collecter des livres (au format _EPUB_ et _PDF_) sur le web (_web scraping_) pour constituer une bibliothèque, et générer divers catalogues de cette bibliothèque.
-Page d'accueil : https://github.com/NJFresnay/Projet-POO.git   
+Page d'accueil : [Link](https://github.com/rayanejaffal/Collecte-de-livres.git)
 
 [](#introduction)Introduction
 -----------------------------   
