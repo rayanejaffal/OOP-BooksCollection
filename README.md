@@ -9,8 +9,8 @@ L’objectif de ce projet est de concevoir une application pour constituer et su
 et générer divers catalogues de cette bibliothèque.
 Page d'accueil : [https://github.com/rayanejaffal/Collecte-de-livres.git](https://github.com/rayanejaffal/Collecte-de-livres.git)   
 
-[](#introduction)Introduction 
------------------------------
+[](#Documentation du Modude)Documentation du Modude  
+---------------------------------------------------   
 Ce module se compose de quatre classes: la classe `base_livre` qui englobe les sous-classes `PDF` et `EPUB`, la classe `base_bibli`, la classe `bibli`, et enfin la classe `bibli_scrap`. 
  
 [](#_librairies_python)Librairies Python 
