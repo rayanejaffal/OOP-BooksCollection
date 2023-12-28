@@ -231,23 +231,24 @@ class base_bibli:
         book.set_title("Rapport des Livres de la Bibliothèque")
 
         Titles = df['Titre'].unique()
+        rapport_livres= ""
 
         for title in Titles:
             title_books = df[df['Titre'] == title]
-            chapter = epub.EpubHtml(title=title, file_name=f"{title}.xhtml", lang='fr')
-            chapter.content = f"<h2>{title}</h2>"
-
+            rapport_livres += f"<h2>{title}</h2>"
+            
             for index, row in title_books.iterrows():
-                chapter.content += f"<p>Auteur: {row['Auteur']}</p>"
-                chapter.content += f"<p>Langue: {row['Langue']}</p>"
-                chapter.content += f"<p>Sujet: {row['Sujet']}</p>"
-                chapter.content += f"<p>Date: {row['Date']}</p>"
-                chapter.content += f"<p>Type: {row['Type']}</p>"
-                chapter.content += f"<p>Fichier: {row['Fichier']}</p>"
-                chapter.content += "<hr>"
+                rapport_livres += f"<p>Auteur: {row['Auteur']}</p>"
+                rapport_livres += f"<p>Langue: {row['Langue']}</p>"
+                rapport_livres += f"<p>Sujet: {row['Sujet']}</p>"
+                rapport_livres += f"<p>Date: {row['Date']}</p>"
+                rapport_livres += f"<p>Type: {row['Type']}</p>"
+                rapport_livres += f"<p>Fichier: {row['Fichier']}</p>"
+                rapport_livres += "<hr>"
 
-            book.add_item(chapter)
-
+        chapter = epub.EpubHtml(title="Rapport_livres", file_name="Rapport_livres.xhtml", lang='fr')
+        chapter.content = rapport_livres
+        book.add_item(chapter)
         epub.write_epub(epub_path, book)
 
     def _generate_epub_author_report(self, df, fichier):
@@ -259,21 +260,23 @@ class base_bibli:
         book.set_title("Rapport des Auteurs de la Bibliothèque")
 
         authors = df['Auteur'].unique()
+        rapport_auteurs= ""
 
         for author in authors:
             author_books = df[df['Auteur'] == author]
-            chapter = epub.EpubHtml(title=author, file_name=f"{author}.xhtml", lang='fr')
-            chapter.content = f"<h2>Auteur: {author}</h2>"
+            rapport_auteurs += f"<h2>{author}</h2>"
+            
 
             for index, row in author_books.iterrows():
-                chapter.content += f"<p>Titre: {row['Titre']}</p>"
-                chapter.content += f"<p>Langue: {row['Langue']}</p>"
-                chapter.content += f"<p>Sujet: {row['Sujet']}</p>"
-                chapter.content += f"<p>Date: {row['Date']}</p>"
-                chapter.content += f"<p>Type: {row['Type']}</p>"
-                chapter.content += f"<p>Fichier: {row['Fichier']}</p>"
-                chapter.content += "<hr>"
-
-            book.add_item(chapter)
-
+                rapport_auteurs += f"<p>Titre: {row['Titre']}</p>"
+                rapport_auteurs += f"<p>Langue: {row['Langue']}</p>"
+                rapport_auteurs += f"<p>Sujet: {row['Sujet']}</p>"
+                rapport_auteurs += f"<p>Date: {row['Date']}</p>"
+                rapport_auteurs += f"<p>Type: {row['Type']}</p>"
+                rapport_auteurs += f"<p>Fichier: {row['Fichier']}</p>"
+                rapport_auteurs += "<hr>"
+           
+        chapter = epub.EpubHtml(title="Rapport_auteurs", file_name="Rapport_auteurs.xhtml", lang='fr')
+        chapter.content = rapport_auteurs
+        book.add_item(chapter)
         epub.write_epub(epub_path, book)
