@@ -132,9 +132,9 @@ L’application utilise un fichier de configuration `bibli.conf` contenant :
 - le nombre max de livres à rapatrier à chaque collecte.
 
 **fichier bibli.conf**   
-> bibliotheque=/tmp/bibli/livres   
-> etats=/tmp/bibli/etats    
-> nbmax=1000    
+> bibliotheque=./livres   
+> etats=./etats    
+> nbmax=100    
 
 [](###_Modifications)Modifications      
 -----------------------------------   
