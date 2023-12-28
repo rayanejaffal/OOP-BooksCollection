@@ -11,7 +11,7 @@ Page d'accueil : [https://github.com/rayanejaffal/Collecte-de-livres.git](https:
 
 [](#introduction)Introduction 
 -----------------------------
-Ce module se compose de quatre classes: la classe `base_livre` qui englobe les sous-classes `PDF` et `EPUB`, la classe `base_bibli` avec la sous-classe `simple_bibli`, la classe `bibli`, et enfin la classe `bibli_scrap`. 
+Ce module se compose de quatre classes: la classe `base_livre` qui englobe les sous-classes `PDF` et `EPUB`, la classe `base_bibli`, la classe `bibli`, et enfin la classe `bibli_scrap`. 
  
 [](#_librairies_python)Librairies Python 
 ----------------------------------------
@@ -23,7 +23,9 @@ Les principales librairies Python utilisées dans notre module:
 - `pdfkit` qui aide à créer des documents PDF en transformant de simples pages HTML [description](https://pypi.org/project/pdfkit/)
 - `shutil` est une bibliothèque standard qui offre un ensemble de fonctions haut niveau pour effectuer des opérations de manipulation de fichiers et de répertoires. Elle est particulièrement utile pour effectuer des opérations courantes telles
 que la copie, le déplacement, la suppression et l'archivage de fichiers et de répertoires.
-- `pandas` qui fournit des structures de données rapides et flexibles: DataFrame [description](https://pypi.org/project/pandas/)
+- `pandas` qui fournit des structures de données rapides et flexibles: DataFrame [description](https://pypi.org/project/pandas/)   
+- `reportlab` qui génère des fichier pdf [description](https://pypi.org/project/reportlab/)   
+ 
 [](#_les_méta-données)Les Méta-données 
 --------------------------------------
 La classe `base_livre` utilise principalement les librairies `pypdf` et `EbookLib` pour extraire les méta-données des livres au format PDF ou EPUD. Cela peut être effectué à partir d'un chemin local ou d'une URL. Tout d'abord, l'extension de la
@@ -51,6 +53,7 @@ f.metadata.creation_date
 ````
 Exemple d'utilisation de cette classe: 
 ````python
+from base_livre import base_livre 
 livre = base_livre("path or URL")
 print("Type:", livre.type())
 print("Titre:", livre.titre())
@@ -62,36 +65,31 @@ print("Date:", livre.date())
  
 [](#_la_bibliothèque)La base de la bibliothèque 
 -----------------------------------------------
-Cette classe est en cours de maintenance. La méthode `ajouter()` et l'affichage des rapports en format PDF besoin de quelques modifications!
-La classe `base_bibli` qui prend en paramètre un `path`(lien vers la bibliothèque) permet de stocker et référencier tous les livres présents dans notre bibliothèque(dans un répertoire sur notre machine). 
+La classe `base_bibli` qui prend en paramètre un `path`(lien vers la bibliothèque) permet de stocker et génère un états de tous les livres présents dans notre bibliothèque(dans un répertoire sur notre machine). 
 Elle est dotée de cinq méthodes:
 - `ajouter(ressource)`: qui ajoute un livre directement dans notre répertoire. `path` est la ressource du livre.
-- `donnees_bibliotheque()`: qui récupère tous les fichiers présents dans notre répertoire sous forme de dataframe.
-- `genere_rapport(contenu_html, format,fichier)`: qui selon le type de format passé en argument "PDF" ou "EPUB", retourne un fichier créer à partir d'un contenu html(afin de faciliter la transorformation en pdf ou epub)
-- `rapport_livres` : génère un rapport sur l'état des livres de notre bibliothèque. Et fournit des informations comme le titre du livre, son ou ses auteur(s), son format et le nom du fichier sous lequel il est stocké dans le répertoire.
-- `rapport_auteurs`: génère un rapport sur l'état des livres de notre bibliothèque, Ici les livres sont groupés par auteur, cela permet l'accès à toutes les oeuvres d'un même auteur, et leurs titres, format et nom de fichier. 
-La classe `simple_bibli` est une sous-classe de `base_bibli` qui sert à alimenter notre bibliothèque avec quelques livres matérialisés sous forme de fichiers situés sur la machine locale. Elle hérite des méthodes de sa classe mère.
- 
+- `create_dataframe()`: qui récupère tous les métadatas des fichiers présents dans notre répertoire et les stock dans un dataframe.
+- `rapport_livres(format, fichier)` : qui appelle la fonction `_generate_pdf_report(df, fichier)` ou la fonction `_generate_epub_report(df, fichier)` selon la format précisée. Parsuite une fichier (de format pdf ou epub) d'états des livres présents est crée où les livres sont regroupés par titre.  
+- `rapport_auteurs(format, fichier)` : qui appelle la fonction `_generate_pdf_author_report(df, fichier)` ou la fonction `_generate_epub_author_report(df, fichier)` selon la format précisée. Parsuite une fichier(de format pdf ou epub) d'états des livres présentsest crée où les livres sont regroupés par auteur.   
+
 Exemple d'utilisation de cette classe: 
 ````python
-path = bibli_scrap(r"C:\Users\jaffa\OneDrive\Desktop\Bibliotheque") #la bibliothèque où sauvegarder les fichiers
-#bibliotheque_basique = base_bibli(path) # exemple à titre indicatif
-ma_bibliotheque = simple_bibli(path)
+from base_bibli import base_bibli
+ma_bibliotheque = base_bibli(livres_path, rapports_path)
 ma_bibliotheque.ajouter(ressource)
-ma_bibliotheque.rapport_livres("PDF", "Mon rapport.pdf") 
-ma_bibliotheque.rapport_auteurs("EPUB", "Mon rapport.pdf") 
-````
+ma_bibliotheque.rapport_livres("PDF", "Mon rapport") #ou EPUB
+ma_bibliotheque.rapport_auteurs("PDF", "Mon rapport") #ou EPUB
+````  
+
 [](#_bibli)La Bibliothèque 
 ----------------------------- 
 La classe `bibli` est la classe complète qui définit notre bibliothèque. Elle prend en argument `path` (lien vers la bibliothèque). Elle hérite de la `base_bibli`, elle est donc capable de faire appel à la méthode `ajouter()` (de `base_bibli`)
 si le livre est déja présent dans notre machine locale. De plus elle est capable d'appeler la méthode `scrap()` (de `bibli_scrap`) si `path` est une `url` afin d'ajouter des livres à notre bibliothèque.
 Exemple d'utilisation de cette classe:
 ````python
-path = r"C:\Users\jaffa\OneDrive\Desktop\Bibliotheque" #la bibliothèque où sauvegarder les fichiers
-ma_bibliotheque = bibli_scrap(path)
-ma_bibliotheque.alimenter(path)
-ma_bibliotheque.rapport_livres("PDF", "Mon rapport.pdf") 
-ma_bibliotheque.rapport_auteurs("EPUB", "Mon rapport.pdf") 
+from bibli import bibli
+ma_bibliotheque = bibli(livres_path, rapports_path) #path est la bibliothèque où sauvegarder les fichiers
+ma_bibliotheque.alimenter("https://math.univ-angers.fr/~jaclin/biblio/livres/",100)
 ````
  
 [](#web_scraping)Web Scraping 
@@ -110,8 +108,8 @@ with open(filename, mode="wb") as file: #télechargement
 ````
 Exemple d'utilisation de cette classe: 
 ````python
-path = bibli_scrap(r"C:\Users\jaffa\OneDrive\Desktop\Bibliotheque") #le directoire où sauvegarder les fichiers
-path.scrap("https://math.univ-angers.fr/~jaclin/biblio/livres/", 1, 2) #récupérer de cette page web
+path = bibli_scrap(livres_path, rapports_path) #le directoire où sauvegarder les fichiers
+path.scrap("https://math.univ-angers.fr/~jaclin/biblio/livres/", 1, 100) #récupérer de cette page web
 ````
 Ensuite, cette classe explore la même page à la recherche des liens qui ne renvoient pas vers des livres, puis elle applique la méthode `scrap` sur ces lien de manière récursive jusqu'à ce que la profendeur souhaitée est atteinte.   
 

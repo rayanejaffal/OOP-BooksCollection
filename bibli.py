@@ -8,17 +8,15 @@ import os
 
 class bibli(base_bibli):
     
-    def __init__(self, path):
+    def __init__(self, livres_path, rapports_path):
         """ Vous devez lui passer en arguments le chemin vers le répertoire
             qui vous servira de bibliothèque"""
-        super().__init__(path)
+        super().__init__(livres_path, rapports_path)
         from bibli_scrap import bibli_scrap
-        self.scrap_instance = bibli_scrap(path)
+        self.scrap_instance = bibli_scrap(livres_path, rapports_path)
 
-    def alimenter(self, url, nbmax):
+    def alimenter(self, url, profondeur, nbmax):
         if os.path.exists(url): #si le fichier  est sur notre machine, le programme appelle 'ajouter()'
             return self.ajouter(url)
         else:  #sinon c'est une url,  le programme appelle 'scrap()'
-            #selon le sujet elle ajoute tous les livres référencés dans la page web correspondant à l’URL
-            profondeur = 1 #on a fixé la profondeur à pour que la méthode ne recupère que les fichiers de l'url passée en arguments et pas des lien adjacents
             return self.scrap_instance.scrap(url, profondeur, nbmax)        
