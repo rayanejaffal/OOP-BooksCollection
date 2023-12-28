@@ -15,7 +15,7 @@ class base_bibli:
         """
         self.livres_path = livres_path
         self.rapports_path = rapports_path
-        self.books = []  # A list to keep track of books in the library
+        self.books = []  # liste pour poursuivre les livres de la bibliothèque
 
         try:
             if not os.path.exists(livres_path):
@@ -26,7 +26,7 @@ class base_bibli:
                 
             else: 
                 file_paths = [os.path.join(livres_path, f) for f in os.listdir(livres_path) if os.path.isfile(os.path.join(livres_path, f))]
-                self.books.extend(file_paths) 
+                self.books.extend(file_paths) #ajouter les livres déja existants
         except Exception as e:
             print(f"Erreur lors de l'initialisation de la bibliothèque : {e}")
             
@@ -55,17 +55,16 @@ class base_bibli:
                 # Si c'est un dossier local, copie le fichier dans le dossier
                 shutil.copy(livre, self.livres_path)
                 print(f"Le livre {livre_name} a été ajouté au dossier.")
-                self.books.append(os.path.join(self.livres_path, livre_name))
+                self.books.append(os.path.join(self.livres_path, livre_name)) #ajouter le livre
             else:
                 print("Type de chemin non pris en charge.")
                 
-            print(self.books)
 
 
         except Exception as e:
             print(f"Erreur lors de l'ajout du livre à la bibliothèque : {e}")
     
-    def create_dataframe(self):
+    def create_dataframe(self): #pour faciliter la creation des rapports, soit par titre, soit par auteur
         """
         Crée un DataFrame contenant les livres et leurs métadonnées.
         """
@@ -170,7 +169,7 @@ class base_bibli:
                 y_position -= 20
                 c.drawString(120, y_position, "_" * 50)
                 
-                if y_position <= 50:
+                if y_position <= 140: #sauter sur une nouvelle page, break
                         c.showPage()
                         y_position = 780
                 
@@ -214,7 +213,7 @@ class base_bibli:
                 y_position -= 20
                 c.drawString(120, y_position, "_" * 50)
                 
-                if y_position <= 50:
+                if y_position <= 140: #sauter sur une nouvelle page, break
                     c.showPage()
                     y_position = 780
     
@@ -236,7 +235,7 @@ class base_bibli:
         for title in Titles:
             title_books = df[df['Titre'] == title]
             chapter = epub.EpubHtml(title=title, file_name=f"{title}.xhtml", lang='fr')
-            chapter.content = f"<h1>{title}</h1>"
+            chapter.content = f"<h2>{title}</h2>"
 
             for index, row in title_books.iterrows():
                 chapter.content += f"<p>Auteur: {row['Auteur']}</p>"
@@ -264,7 +263,7 @@ class base_bibli:
         for author in authors:
             author_books = df[df['Auteur'] == author]
             chapter = epub.EpubHtml(title=author, file_name=f"{author}.xhtml", lang='fr')
-            chapter.content = f"<h1>Auteur: {author}</h1>"
+            chapter.content = f"<h2>Auteur: {author}</h2>"
 
             for index, row in author_books.iterrows():
                 chapter.content += f"<p>Titre: {row['Titre']}</p>"
