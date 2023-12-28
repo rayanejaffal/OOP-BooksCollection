@@ -1,6 +1,6 @@
 # Bienvenue à la Guide d'Utilisation ! 
 Réalisation du projet final de POO   
-Rayane JAFFAL et Jennifer NGOUNA   
+Rayane JAFFAL
 Prof. Jacquelin Charbonel   
 Université d'Angers   
  
