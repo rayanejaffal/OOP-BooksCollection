@@ -145,18 +145,18 @@ Puisque l'application doit être capable de sauvegarder les rapports dans un ré
 -------------------------------   
 L'étape finale est de construire le main script de l'application `bibli_app.py` qui utilise notre module et le fichier de configuration.  
 
-[](####Shebang)Shebang     
+[](####Shebang)Shebang:     
 Ce code commencent par:  
 ````python
 #!/usr/bin/env python3   
 ````
 Cette ligne est utilisée pour spécifier que l'interpréteur qui doit exécuter le script est Python 3, parsuite on peut executer l'application directrment dans le console sans le commande python3.   
 
-[](####Libraries_Python_Importées)Libraries Python Importées   
+[](####Libraries_Python_Importées)Libraries Python Importées:   
 - `argparse` : qui gère les arguments de ligne de commande. [description](https://pypi.org/project/argparse/)
 - `configparser` : qui lit le fichier de configuration `bibli.conf`. [description](https://pypi.org/project/configparser/)    
 
-[](####Le_Code)Le Code     
+[](####Le_Code)Le Code:     
 La fonction `parse_config` extrait du fichier de configuration les valeurs de livres_path, rapports_path, et nbmax (nombre max des livres à télécharger). La fonction `main` ensuite, analyse les arguments de ligne de commande. Les arguments incluent le fichier de configuration (-c ), la commande à exécuter (collecte ou rapports), l'URL pour la collecte, et la profondeur pour la collecte. Selon la commande, elle appelle les méthodes appropriées de l'instance bibli: `alimenter` pour la collecte, `rapport_livres` et `rapport_auteurs` pour générer des rapports.   
 
 
