@@ -14,7 +14,7 @@ Page d'accueil : [https://github.com/rayanejaffal/Collecte-de-livres.git](https:
 Ce module se compose de quatre classes: la classe `base_livre` qui englobe les sous-classes `PDF` et `EPUB`, la classe `base_bibli`, la classe `bibli`, et enfin la classe `bibli_scrap`. 
  
 [](###_Librairies_python)Librairies Python 
-----------------------------------------
+-------------------------------------------   
 Les principales librairies Python utilisées dans notre module:
 - `pypdf` qui intéragit avec les fichiers au format PDF [description](https://pypi.org/project/pypdf/)
 - `EbookLib` qui interagit avec les fichiers au format EPUB [description](https://pypi.org/project/EbookLib/) 
@@ -133,10 +133,31 @@ L’application utilise un fichier de configuration `bibli.conf` contenant :
 - le nombre max de livres à rapatrier à chaque collecte.
 
 **fichier bibli.conf**   
-> bibliotheque=/tmp/bibli/livres
-> etats=/tmp/bibli/etats
-> nbmax=1000
-> 
+> bibliotheque=/tmp/bibli/livres   
+> etats=/tmp/bibli/etats    
+> nbmax=1000    
+
+[](###_Modifications)Modifications      
+-----------------------------------   
+Puisque l'application doit être capable de sauvegarder les rapports dans un répertoire different du ce des livres, on a modifié les paramètres des méthodes responsables de l'alimentation de la bibliothèque et de la géneration des rapports dans notre module, de façon qu'ils prennent soit le path du répertoire destiné à recevoir les livres récoltés `path_livres`, soit le path nom du répertoire destiné à recevoir les rapports `path_rapports`. On a adapté ensuite les classes.  
+
+[](###_Main_Script)Main Script      
+-------------------------------   
+L'étape finale est de construire le main script de l'application `bibli_app.py` qui utilise notre module et le fichier de configuration.   
+####Shebang:  
+Ce code commencent par:  
+````python
+#!/usr/bin/env python3   
+````
+Cette ligne est utilisée pour spécifier que l'interpréteur qui doit exécuter le script est Python 3, parsuite on peut executer l'application directrment dans le console sans le commande python3.   
+
+####Libraries Python Importées   
+- `argparse` : qui gère les arguments de ligne de commande. [description](https://pypi.org/project/argparse/)
+- `configparser` : qui lit le fichier de configuration `bibli.conf`. [description](https://pypi.org/project/configparser/)    
+
+####Le Code   
+La fonction `parse_config` extrait du fichier de configuration les valeurs de livres_path, rapports_path, et nbmax (nombre max des livres à télécharger). La fonction `main` ensuite, analyse les arguments de ligne de commande. Les arguments incluent le fichier de configuration (-c ), la commande à exécuter (collecte ou rapports), l'URL pour la collecte, et la profondeur pour la collecte. Selon la commande, elle appelle les méthodes appropriées de l'instance bibli: `alimenter` pour la collecte, `rapport_livres` et `rapport_auteurs` pour générer des rapports.   
+
 
 -------------------------------------------------------------- 
 Test possible des classes avec l’URL [bibliothèque](https://math.univ-angers.fr/~jaclin/biblio/livres/)
