@@ -1,4 +1,4 @@
-# Bienvenue à la guide d'utilisation! 
+# Bienvenue à la Guide d'Utilisation! 
 Réalisation du projet final de POO   
 Rayane JAFFAL et Jennifer NGOUNA   
 Prof. Jacquelin Charbonel   
@@ -9,11 +9,11 @@ L’objectif de ce projet est de concevoir une application pour constituer et su
 et générer divers catalogues de cette bibliothèque.
 Page d'accueil : [https://github.com/rayanejaffal/Collecte-de-livres.git](https://github.com/rayanejaffal/Collecte-de-livres.git)   
 
-[](#Documentation du Modude)Documentation du Modude  
+[](#Documentation_du_Module)Documentation du Module  
 ---------------------------------------------------   
 Ce module se compose de quatre classes: la classe `base_livre` qui englobe les sous-classes `PDF` et `EPUB`, la classe `base_bibli`, la classe `bibli`, et enfin la classe `bibli_scrap`. 
  
-[](#_librairies_python)Librairies Python 
+[](##_librairies_python)Librairies Python 
 ----------------------------------------
 Les principales librairies Python utilisées dans notre module:
 - `pypdf` qui intéragit avec les fichiers au format PDF [description](https://pypi.org/project/pypdf/)
@@ -26,7 +26,7 @@ que la copie, le déplacement, la suppression et l'archivage de fichiers et de r
 - `pandas` qui fournit des structures de données rapides et flexibles: DataFrame [description](https://pypi.org/project/pandas/)   
 - `reportlab` qui génère des fichier pdf [description](https://pypi.org/project/reportlab/)   
  
-[](#_les_méta-données)Les Méta-données 
+[](##_les_méta-données)Les Méta-données 
 --------------------------------------
 La classe `base_livre` utilise principalement les librairies `pypdf` et `EbookLib` pour extraire les méta-données des livres au format PDF ou EPUD. Cela peut être effectué à partir d'un chemin local ou d'une URL. Tout d'abord, l'extension de la
 ressource est vérifiée pour déterminer le type de fichier, puis en fonction de ce type, la sous-classe appropriée, soit `PDF`, soit `EPUB`, est appelée. 
@@ -63,7 +63,7 @@ print("Sujet:", livre.sujet())
 print("Date:", livre.date())
 ````
  
-[](#_la_bibliothèque)La base de la bibliothèque 
+[](##_la_bibliothèque)La base de la bibliothèque 
 -----------------------------------------------
 La classe `base_bibli` qui prend en paramètre un `path`(lien vers la bibliothèque) permet de stocker et génère un états de tous les livres présents dans notre bibliothèque(dans un répertoire sur notre machine). 
 Elle est dotée de cinq méthodes:
@@ -81,7 +81,7 @@ ma_bibliotheque.rapport_livres("PDF", "Mon rapport") #ou EPUB
 ma_bibliotheque.rapport_auteurs("PDF", "Mon rapport") #ou EPUB
 ````  
 
-[](#_bibli)La Bibliothèque 
+[](##_bibli)La Bibliothèque 
 ----------------------------- 
 La classe `bibli` est la classe complète qui définit notre bibliothèque. Elle prend en argument `path` (lien vers la bibliothèque). Elle hérite de la `base_bibli`, elle est donc capable de faire appel à la méthode `ajouter()` (de `base_bibli`)
 si le livre est déja présent dans notre machine locale. De plus elle est capable d'appeler la méthode `scrap()` (de `bibli_scrap`) si `path` est une `url` afin d'ajouter des livres à notre bibliothèque.
@@ -92,8 +92,8 @@ ma_bibliotheque = bibli(livres_path, rapports_path) #path est la bibliothèque o
 ma_bibliotheque.alimenter("https://math.univ-angers.fr/~jaclin/biblio/livres/",100)
 ````
  
-[](#web_scraping)Web Scraping 
------------------------------ 
+[](##web_scraping)Web Scraping 
+-------------------------------
 La classe `bibli_scrap` est responsable de réaliser le web scraping destiné à alimenter la bibliothèque. Elle est dotée d'une méthode nommée `scrap` qui prends trois paramètres : `url`, `profondeur` et `nbmax`. Cette méthode récupère la page
 web référencée par url, puis télécharge tous les fichiers PDF et EPUB qui y sont référencés. Ensuite, elle extrait tous les liens vers d’autres pages web de cette page, répetant le processus sur chacune d’entre elles. Ce cycle se répète jusqu’à
 ce que l’un des critères d’arrêt soit satisfait. 
@@ -111,7 +111,26 @@ Exemple d'utilisation de cette classe:
 path = bibli_scrap(livres_path, rapports_path) #le directoire où sauvegarder les fichiers
 path.scrap("https://math.univ-angers.fr/~jaclin/biblio/livres/", 1, 100) #récupérer de cette page web
 ````
-Ensuite, cette classe explore la même page à la recherche des liens qui ne renvoient pas vers des livres, puis elle applique la méthode `scrap` sur ces lien de manière récursive jusqu'à ce que la profendeur souhaitée est atteinte.   
+Ensuite, cette classe explore la même page à la recherche des liens qui ne renvoient pas vers des livres, puis elle applique la méthode `scrap` sur ces lien de manière récursive jusqu'à ce que la profendeur souhaitée est atteinte.     
+
+[](#Documentation_de_l'Application)Documentation de l'Application 
+-----------------------------------------------------------------   
+Cette application `bibli_app` utilise le module ci-dessus et s'execute comme:   
+````console
+$ ./bibli_app.py -c bibli.conf https://math.univ-angers.fr/~jaclin/biblio/livres/ 1
+````   
+pour lancer une collecte de profondeur 1 visant à compléter la bibliothèque, et :   
+````console
+$ ./bibli_app.py -c bibli.conf rapports
+````   
+pour générer les 2x2 rapports au format EPUB et PDF.  
+
+[](##Fichier_de_Configuration)Fichier de Configuration  
+------------------------------------------------------   
+L’application utilise un fichier de configuration `bibli.conf` contenant :   
+- le nom du répertoire destiné à recevoir les livres récoltés,
+- le nom du répertoire destiné à recevoir les rapports,
+- le nombre max de livres à rapatrier à chaque collecte.
 
 -------------------------------------------------------------- 
 Test possible des classes avec l’URL [bibliothèque](https://math.univ-angers.fr/~jaclin/biblio/livres/)
