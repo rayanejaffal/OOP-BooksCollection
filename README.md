@@ -1,13 +1,12 @@
-# Bienvenue à la Guide d'Utilisation! 
+# Bienvenue à la Guide d'Utilisation ! 
 Réalisation du projet final de POO   
 Rayane JAFFAL et Jennifer NGOUNA   
 Prof. Jacquelin Charbonel   
 Université d'Angers   
  
-## Projet-POO : Collecte de livres  
-L’objectif de ce projet est de concevoir une application pour constituer et suivre une bibliothèque de livres. L’idée est de pouvoir collecter des livres (au format _EPUB_ et _PDF_) sur le web (_web scraping_) pour constituer une bibliothèque,
-et générer divers catalogues de cette bibliothèque.
-Page d'accueil : [https://github.com/rayanejaffal/Collecte-de-livres.git](https://github.com/rayanejaffal/Collecte-de-livres.git)   
+## Projet-POO: Collecte de livres  
+L’objectif de ce projet est de concevoir une application pour constituer et suivre une bibliothèque de livres. L’idée est de pouvoir collecter des livres (du format _EPUB_ et _PDF_) sur le web (_web scraping_) pour constituer une bibliothèque, et générer divers catalogues de cette bibliothèque.    
+Page d'accueil : [git](https://github.com/rayanejaffal/Collecte-de-livres.git)   
 
 [](#Documentation_du_Module)Documentation du Module  
 ---------------------------------------------------   
@@ -26,7 +25,7 @@ que la copie, le déplacement, la suppression et l'archivage de fichiers et de r
 - `pandas` qui fournit des structures de données rapides et flexibles: DataFrame [description](https://pypi.org/project/pandas/)   
 - `reportlab` qui génère des fichier pdf [description](https://pypi.org/project/reportlab/)   
  
-[](###_Les_méta-données)Les Méta-données 
+[](###_Les_Méta-données)Les Méta-données 
 --------------------------------------
 La classe `base_livre` utilise principalement les librairies `pypdf` et `EbookLib` pour extraire les méta-données des livres au format PDF ou EPUD. Cela peut être effectué à partir d'un chemin local ou d'une URL. Tout d'abord, l'extension de la
 ressource est vérifiée pour déterminer le type de fichier, puis en fonction de ce type, la sous-classe appropriée, soit `PDF`, soit `EPUB`, est appelée. 
