@@ -88,7 +88,7 @@ Exemple d'utilisation de cette classe:
 ````python
 from bibli import bibli
 ma_bibliotheque = bibli(livres_path, rapports_path) #path est la bibliothèque où sauvegarder les fichiers
-ma_bibliotheque.alimenter("https://math.univ-angers.fr/~jaclin/biblio/livres/",100)
+ma_bibliotheque.alimenter("https://math.univ-angers.fr/~jaclin/biblio/livres/", 1, 100)
 ````
  
 [](###_Web_Scraping)Web Scraping 
