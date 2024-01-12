@@ -116,11 +116,11 @@ Ensuite, cette classe explore la même page à la recherche des liens qui ne ren
 -----------------------------------------------------------------   
 Cette application `bibli_app` utilise le module ci-dessus et s'execute comme:   
 ````console
-$ ./bibli_app.py -c bibli.conf https://math.univ-angers.fr/~jaclin/biblio/livres/ 1
+./bibli_app.py -c bibli.conf https://math.univ-angers.fr/~jaclin/biblio/livres/ 1
 ````   
 pour lancer une collecte de profondeur 1 visant à compléter la bibliothèque, et :   
 ````console
-$ ./bibli_app.py -c bibli.conf rapports
+./bibli_app.py -c bibli.conf rapports
 ````   
 pour générer les 2x2 rapports au format EPUB et PDF.  
 
